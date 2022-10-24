@@ -2,7 +2,10 @@
 
 import math as m
 import random
+from copy import deepcopy
 from typing import List
+
+import unittest
 
 def random_matrix(a):
     for x in range(len(a)):
@@ -15,12 +18,11 @@ def add_matrix(a,b):
         print("wrong lenhth")
         return 0;
     
-    c=a;
+    c=deepcopy(a);
    
     for x in range(len(a)):
         for y in range(len(a[x])):
-            print(a[x][y]+b[x][y])
-            c[x][y]=a[x][y]+b[x][y]
+            c[x][y]=(a[x][y])+(b[x][y])
     return c;
 
 def new_matrix(size):
@@ -32,7 +34,7 @@ def dot_product(a, b):
     
     if(len(a)!=(len(b))):
         print("wrong lenhth")
-        return 0;
+        raise ValueError
     sum=0
     for i in range (len(a)):
         sum+=a[i]*b[i]
@@ -72,6 +74,7 @@ def main():
     a=[1,2,3,4,5]
     b=[5,6,1,6,3]
     print("dot product is", dot_product(a, b))
+    print("\n\n")
     
     size=3
     a=new_matrix(size)
@@ -80,9 +83,23 @@ def main():
     b=random_matrix(b)
 
     c=add_matrix(a, b)
-    print(a,"\n")
-    print(b,"\n")
-    print(c,"\n")
+    
+    print(a,"\n\n")
+    print(b,"\n\n")
+    print(c,"\n\n")
+    
+class TestDotProduct(unittest.TestCase):
+    def test_positive(self):
+        self.assertEqual(dot_product([1,2,3],[4,5,6]),32)
+    def test_positive2(self):
+        with self.assertRaises(ValueError):
+            dot_product([1,2,3],[4,5])
+    def test_positive3(self):
+        with self.assertRaises(TypeError):
+            dot_product([1,2,3],[4,5,'6'])
+    
+if __name__ == '__main__':
+    unittest.main()
         
 if __name__ == '__main__':
     main()
