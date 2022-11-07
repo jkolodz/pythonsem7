@@ -35,6 +35,9 @@ class Complex(object):
     def __add__(a,b):
         c= Complex(a.real+b.real, a.imag+b.imag)
         return c
+    def __sub__(a,b):
+        c= Complex(a.real-b.real, a.imag-b.imag)
+        return c
     def __mul__(a,b):
         c = Complex(a.real*b.real-b.imag*a.imag, a.imag*b.real+a.real*b.imag)
         return c

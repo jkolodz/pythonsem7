@@ -14,9 +14,10 @@ def random_matrix(a):
     return a
 
 def add_matrix(a,b):
+
     if(len(a)!=(len(b))):
         print("wrong lenhth")
-        return 0;
+        raise ValueError
     
     c=deepcopy(a);
    
@@ -24,6 +25,29 @@ def add_matrix(a,b):
         for y in range(len(a[x])):
             c[x][y]=(a[x][y])+(b[x][y])
     return c;
+
+def mul_matrix(a,b):
+
+    if(len(a)!=(len(b))):
+        print("wrong lenhth")
+        raise ValueError
+    
+    c=deepcopy(a);
+   
+    for x in range(len(a)):
+        for y in range(len(b[0])):
+            c[x][y]=0
+            for z in range(len(b)):                
+                c[x][y]+=a[x][z]*b[z][y]
+    return c;
+
+def wyznacznik(a):
+    c=deepcopy(a)
+    
+    
+    
+    
+    return c
 
 def new_matrix(size):
     a=[0]*size
@@ -76,17 +100,19 @@ def main():
     print("dot product is", dot_product(a, b))
     print("\n\n")
     
-    size=3
+    size=8
     a=new_matrix(size)
     b=new_matrix(size)    
     a=random_matrix(a)
     b=random_matrix(b)
 
     c=add_matrix(a, b)
+    d=mul_matrix(a,b)
     
     print(a,"\n\n")
     print(b,"\n\n")
     print(c,"\n\n")
+    print(d,"\n\n")
     
 class TestDotProduct(unittest.TestCase):
     def test_positive(self):
@@ -98,8 +124,8 @@ class TestDotProduct(unittest.TestCase):
         with self.assertRaises(TypeError):
             dot_product([1,2,3],[4,5,'6'])
     
-if __name__ == '__main__':
-    unittest.main()
+#if __name__ == '__main__':
+   # unittest.main()
         
 if __name__ == '__main__':
     main()
